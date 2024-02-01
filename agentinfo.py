@@ -1,11 +1,13 @@
-from flask import Flask, request
+const http = require('http');
 
-app = Flask(__name__)
+const server = http.createServer((req, res) => {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.end(`Welcome to 2022\nUser Agent: ${req.headers['user-agent']}`);
+});
 
-@app.route('/')
-def welcome():
-    user_agent = request.headers.get('User-Agent')
-    return f"Welcome to 2022! User Agent: {user_agent}"
+const PORT = process.env.PORT || 3000;
 
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+server.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
+
